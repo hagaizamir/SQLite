@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hagai.edu.sqlite.dialogs.AddTodoFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <EditText
+        android:id="@+id/etMission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:hint="Mission"
+        android:inputType="textPersonName"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:id="@+id/spImportance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:entries="@array/importance"
+        android:layout_below="@+id/etMission"
+        android:layout_alignLeft="@+id/etMission"
+        android:layout_alignStart="@+id/etMission"
+        android:layout_alignRight="@+id/etMission"
+        android:layout_alignEnd="@+id/etMission" />
+
+    <Button
+        android:id="@+id/btDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/spImportance"
+        android:layout_alignRight="@+id/spImportance"
+        android:layout_below="@+id/spImportance"
+        android:layout_marginTop="17dp"
+        android:text="Add" />
+
+</RelativeLayout>
