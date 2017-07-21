@@ -1,4 +1,4 @@
-package hagai.edu.sqlite;
+package hagai.edu.sqlite.sqlite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -24,7 +24,7 @@ public class TodosDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //write sql script to create the tables
-        db.execSQL("CREATE TABLE "+ TodosContract.TBL_Todos +"("+
+        db.execSQL("CREATE TABLE "+ TodosContract.TBL_TODOS +"("+
                 TodosContract.TBL_TODOS_COL_ID +"INTEGER PRIMARY KEY AUTOINCREMENT," +
                 TodosContract.TBL_TODOS_COL_MISSION +"TEXT NOT NULL," +
                 TodosContract.TBL_TODOS_COL_IMPORTANCE +"TEXT NOT NULL" +
@@ -47,7 +47,7 @@ public class TodosDBHelper extends SQLiteOpenHelper {
 
         public static final int DBVersion = 1;
 
-        public static final String TBL_Todos = "Todos";
+        public static final String TBL_TODOS = "Todos";
 
         public static final String TBL_TODOS_COL_MISSION = "mission";
 

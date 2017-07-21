@@ -10,7 +10,7 @@ public class Todo {
     private  int id;
 
     //constactort for insert
-    public Todo(String mission, String importance) {
+    public Todo(int id, String mission, String importance) {
         this.mission = mission;
         this.importance = importance;
     }

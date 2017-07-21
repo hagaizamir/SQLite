@@ -1,7 +1,6 @@
 package hagai.edu.sqlite.dialogs;
 
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.Fragment;
@@ -13,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import hagai.edu.sqlite.R;
-import hagai.edu.sqlite.TodosDBHelper;
+import hagai.edu.sqlite.sqlite.DAO;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,11 +47,23 @@ public class AddTodoFragment extends BottomSheetDialogFragment implements View.O
         String importance = spImportance.getSelectedItem().toString();
 
         //spinner -> selected
-        TodosDBHelper helper = new TodosDBHelper(getContext());
-        SQLiteDatabase db = helper.getWritableDatabase();
-
-        db.execSQL("INSERT INTO Todos (mission , importance)" +
-                " VALUES (" + mission + " ," + importance + "');");
+//        TodosDBHelper helper = new TodosDBHelper(getContext());
+//        SQLiteDatabase db = helper.getWritableDatabase();
+//
+//        db.execSQL("INSERT INTO Todos (mission , importance)" +
+//                " VALUES (" + mission + " ," + importance + "');");
+//
+//        //maps key value pairs
+//        ContentValues values = new ContentValues();
+//        values.put(TodosDBHelper.TodosContract.TBL_TODOS_COL_MISSION , mission);
+//        values.put(TodosDBHelper.TodosContract.TBL_TODOS_COL_IMPORTANCE , importance);
+//
+//        db.insert(TodosDBHelper.TodosContract.TBL_TODOS , null , values);
+        DAO.getInstance(getContext()).addTodos(mission , importance);
         dismiss();
+
+        //prepared statements
+
+
     }
 }
