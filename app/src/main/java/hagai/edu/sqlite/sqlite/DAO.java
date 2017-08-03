@@ -11,13 +11,16 @@ import java.util.List;
 import hagai.edu.sqlite.models.Todo;
 
 /**
- * Data Access Object
+ * Data access Object.
  * access db helper
  */
 
 //Singleton is not thread safe.
-//unless we make it thread safe.......Synchronized
-//synchronized is not efficient
+//unless we make it thread safe... Synchronized
+//Synchronized is not efficient since 99.9% of the time
+//the instance is not null
+//to fix this we use double checked locking on our singleton
+
 public class DAO {
     //properties:
     private SQLiteDatabase db;
@@ -45,13 +48,29 @@ public class DAO {
     /**
      * add todos
      * */
-    public void addTodo(String mission, String importance){
+    public long addTodo(String mission, String importance){
         //maps key value pairs.
         ContentValues values = new ContentValues();
         values.put(TodosDBHelper.TodosContract.TBL_TODOS_COL_MISSION, mission);
         values.put(TodosDBHelper.TodosContract.TBL_TODOS_COL_IMPORTANCE, importance);
 
-        db.insert(TodosDBHelper.TodosContract.TBL_TODOS, null, values);
+        long lastInsertedID = db.insert(TodosDBHelper.TodosContract.TBL_TODOS, null, values);
+        System.out.println(lastInsertedID);
+        return lastInsertedID;
+    }
+
+    public long getLastInsertedID(){
+        Cursor cursor = db.rawQuery("SELECT MAX(id) as lastInsertedID FROM Todos", null);
+        if (!cursor.moveToFirst()){
+            throw new RuntimeException("The table is empty");
+        }
+
+        int lastInsertedID = cursor.getInt(cursor.getColumnIndex("lastInsertedID"));
+
+        //"SELECT * FROM sqlite_sequence"
+        cursor.close();
+        System.out.println(lastInsertedID);
+        return lastInsertedID;
     }
 
     public List<Todo> getTodos(){
@@ -92,4 +111,23 @@ public class DAO {
         return todos;
     }
 
+    public void updateTodo(long todoID, String mission, String importance) {
+        ContentValues values = new ContentValues();
+        values.put(TodosDBHelper.TodosContract.TBL_TODOS_COL_IMPORTANCE, importance);
+        values.put(TodosDBHelper.TodosContract.TBL_TODOS_COL_MISSION, mission);
+
+        db.update(
+                TodosDBHelper.TodosContract.TBL_TODOS,
+                values,
+                TodosDBHelper.TodosContract.TBL_TODOS_COL_ID +" = " + todoID,
+                null/*new String[]{String.valueOf(todoID)}*/
+        );
+    }
+
+    public void deleteTodo(int id) {
+        db.delete(TodosDBHelper.TodosContract.TBL_TODOS,
+                TodosDBHelper.TodosContract.TBL_TODOS_COL_ID + " = ?",
+                new String[]{String.valueOf(id)}
+        );
+    }
 }

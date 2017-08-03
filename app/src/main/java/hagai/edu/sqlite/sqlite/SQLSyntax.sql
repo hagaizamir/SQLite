@@ -131,3 +131,27 @@ WHERE ProductName = 'Chais'
 UPDATE Products
 SET ProductName = 'Chocho'
 WHERE ProductName = 'Chais'
+
+--Group by
+-- we can't show columns
+SELECT column_name(s)
+FROM table_name
+WHERE condition
+GROUP BY column_name(s)
+ORDER BY column_name(s);
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country;
+
+SELECT COUNT(c.CategoryID) AS Countid, c.CategoryID, MAX(CategoryName) AS CategoryName
+FROM Products AS p
+JOIN Categories AS c
+ON p.CategoryID = c.CategoryID
+GROUP BY c.CategoryID
+
+SELECT MAX(OrderID) AS lastInsertedID
+FROM [Orders]
+
+SELECT * FROM [Orders]
+WHERE OrderDate = (SELECT MAX(OrderDate) FROM [Orders])
