@@ -32,6 +32,7 @@
         android:layout_marginStart="81dp"
         android:layout_marginTop="45dp"
         android:text="TextView" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabDelete"
         android:layout_width="wrap_content"
@@ -40,8 +41,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:clickable="true"
-        app:backgroundTint="@android:color/holo_red_light"
-        app:fabSize="mini"
+         app:fabSize="mini"
         app:srcCompat="@android:drawable/ic_menu_delete" />
 
 </RelativeLayout>
